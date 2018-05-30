@@ -1,2 +1,38 @@
 ;/etc/named/example.com.zone
 
+$ORIGIN example.com.
+$TTL 86400
+@         IN  SOA  dns1.example.com.  hostmaster.example.com. (
+              2001062501  ; serial
+              21600       ; refresh after 6 hours
+              3600        ; retry after 1 hour
+              604800      ; expire after 1 week
+              86400 )     ; minimum TTL of 1 day
+;
+;
+          IN  NS     dns1.example.com.
+          IN  NS     dns2.example.com.
+dns1         IN  A      10.21.18.51
+dns2         IN  A      10.0.1.2
+ansible      IN  A      10.21.18.52
+haproxy1     IN  A      10.21.18.53
+haproxy2     IN  A      10.21.18.54
+haproxy3     IN  A      10.21.18.55
+haproxy4     IN  A      10.21.18.56
+openshift01  IN  A      10.21.18.58
+openshift02  IN  A      10.21.18.60
+openshift03  IN  A      10.21.18.59
+openshift04  IN  A      10.21.18.61
+openshift05  IN  A      10.21.18.66
+openshift06  IN  A      10.21.18.62
+openshift07  IN  A      10.21.18.64
+openshift08  IN  A      10.21.18.63
+openshift09  IN  A      10.21.18.65
+*.openshift  IN  A      10.21.18.71
+          IN  TXT    "some more text"
+masterlb  IN  A      10.21.18.70
+          IN  TXT    "some text here"
+infralb   IN  A      10.21.18.71
+          IN  TXT    "some text here"
+
+
