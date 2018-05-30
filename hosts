@@ -1,0 +1,57 @@
+[cluster_hosts:children]
+OSEv3
+master-lbs
+
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[etcd]
+openshift01.example.com
+openshift02.example.com
+openshift03.example.com
+
+[masters]
+openshift01.example.com
+openshift02.example.com
+openshift03.example.com
+
+[nodes]
+#infra nodes
+openshift04.example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+openshift05.example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+openshift06.example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+
+#app nodes
+openshift07.example.com openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+openshift08.example.com openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+openshift09.example.com openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+
+#masters
+openshift01.example.com
+openshift02.example.com
+openshift03.example.com
+
+
+[master-lbs]
+haproxy1.example.com
+haproxy2.example.com
+
+[infranode-lbs]
+haproxy3.example.com
+haproxy4.example.com
+
+
+[OSEv3:vars]
+ansible_ssh_user=root
+openshift_deployment_type=openshift-enterprise
+openshift_master_cluster_public_hostname = masterlb.example.com
+openshift_master_cluster_hostname = masterlb.example.com
+openshift_master_default_subdomain = openshift.example.com
+openshift_hosted_router_selector = 'region=infra'
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth','login': 'true', 'challenge': 'true','kind': 'HTPasswdPasswordIdentityProvider','filename': '/etc/origin/master/htpasswd'}]
+
+openshift_master_api_port=8443
+openshift_master_console_port=8443
